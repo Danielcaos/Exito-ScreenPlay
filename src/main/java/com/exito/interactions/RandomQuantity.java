@@ -5,8 +5,11 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.Performable;
+import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Scroll;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 import java.util.Random;
@@ -27,7 +30,9 @@ public class RandomQuantity implements Interaction {
             int randomNumber = random.nextInt(3) + 1;
 
             for (int j = 0; j < randomNumber; j++) {
-                Scroll.to(element);
+                WebDriver driver = BrowseTheWeb.as(actor).getDriver();
+                JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+                jsExecutor.executeScript("window.scrollTo(0, 0);", element);
                 element.click();
             }
 
