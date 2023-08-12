@@ -24,14 +24,16 @@ public class RandomQuantity implements Interaction {
     public <T extends Actor> void performAs(T actor) {
         List<WebElementFacade> quantity = BTN_QUANTITY.resolveAllFor(actor);
         List<WebElementFacade> lblQty = LBL_QUANTITY.resolveAllFor(actor);
+
+        WebDriver driver = BrowseTheWeb.as(actor).getDriver();
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+
         for (int i = 0; i < 3; i++) {
             element = quantity.get(i);
             Random random = new Random();
             int randomNumber = random.nextInt(3) + 1;
 
             for (int j = 0; j < randomNumber; j++) {
-                WebDriver driver = BrowseTheWeb.as(actor).getDriver();
-                JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
                 jsExecutor.executeScript("window.scrollTo(0, 0);", element);
                 element.click();
             }
